@@ -1,0 +1,42 @@
+# depslib dependency file v1.0
+1781447233 source:c:\dev\dsa-t3\main.cpp
+	<iostream>
+	<vector>
+	<fstream>
+	<algorithm>
+	<random>
+	<string>
+	"Mergesort.h"
+	"ShellSort.h"
+	"HeapSort.h"
+
+1781446525 c:\dev\dsa-t3\mergesort.h
+	<iostream>
+	<vector>
+	<fstream>
+	<random>
+	<string>
+
+1781446835 c:\dev\dsa-t3\shellsort.cpp
+	<cstdlib>
+	<iomanip>
+	<iostream>
+	"ShellSort.h"
+
+1781447252 c:\dev\dsa-t3\shellsort.h
+	<vector>
+	<cstdlib>
+	<iomanip>
+	<iostream>
+	"Mergesort.h"
+
+1781446409 c:\dev\dsa-t3\heapsort.h
+	<cstdlib>
+	<vector>
+
+1781446835 source:c:\dev\dsa-t3\shellsort.cpp
+	<cstdlib>
+	<iomanip>
+	<iostream>
+	"ShellSort.h"
+
