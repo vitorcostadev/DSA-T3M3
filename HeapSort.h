@@ -5,6 +5,7 @@
 #include <vector>
 struct Metrics;
 
+// Implementado por: Fernando Nunes
 void heapify(int v[], int n, int raiz,
              long long &c, long long &m)
 {

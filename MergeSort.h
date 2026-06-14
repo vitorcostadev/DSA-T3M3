@@ -5,6 +5,7 @@
 #include <random>
 #include <string>
 
+// Implementado por: Vitor Costa
 struct Metrics {
     unsigned long long comparisons = 0;
     unsigned long long movements = 0;

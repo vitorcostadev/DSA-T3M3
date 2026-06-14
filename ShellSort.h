@@ -9,6 +9,7 @@
 
 using namespace std;
 
+// Implementado por: Arthur Abreu
 class ShellSort {
 public:
     static inline void ordenar(int v[], int n, long long &c, long long &m) {
