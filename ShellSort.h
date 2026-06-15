@@ -81,8 +81,6 @@ public:
             }
         }
     }
-
-    // Mostrar tipo de organização
     static inline void mostrarTipo(int tipo) {
         if (tipo == 1) {
             cout << "crescente";
@@ -93,7 +91,6 @@ public:
         }
     }
 
-    // Fazer teste com parâmetros específicos
     static inline void fazerTeste(int dados[], int quantidade, int tipo) {
         int v[10000];
         long long c = 0;

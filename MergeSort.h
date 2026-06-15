@@ -1,8 +1,6 @@
 #pragma once
 #include <iostream>
 #include <vector>
-#include <fstream>
-#include <random>
 #include <string>
 
 // Implementado por: Vitor Costa
@@ -62,16 +60,5 @@ void mergeSort(std::vector<int>& arr, int left, int right, Metrics& metrics) {
         mergeSort(arr, left, mid, metrics);
         mergeSort(arr, mid + 1, right, metrics);
         merge(arr, left, mid, right, metrics);
-    }
-}
-
-void generateTestFile(const std::string& filepath) {
-    std::ofstream file(filepath);
-    if (file.is_open()) {
-        for (int i = 1; i <= 10000; ++i) {
-            file << i << "\n";
-        }
-        file.close();
-        std::cout << "Arquivo " << filepath << " gerado com sucesso com 10.000 dados crescentes.\n";
     }
 }
