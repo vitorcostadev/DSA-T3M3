@@ -12,15 +12,17 @@ using namespace std;
 // Implementado por: Arthur Abreu
 class ShellSort {
 public:
-    static inline void ordenar(int v[], int n, long long &c, long long &m) {
-        int intervalo, i, j, aux;
+    static inline void ordenar(int v[], size_t n, long long& c, long long& m) {
+        size_t intervalo, i, j;
+        int aux;
 
-        for (intervalo = n / 2; intervalo > 0; intervalo = intervalo / 2) {
+        for (intervalo = n / 2; intervalo > 0; intervalo /= 2) {
             for (i = intervalo; i < n; i++) {
                 aux = v[i];
                 m++;
 
                 j = i;
+
                 while (j >= intervalo) {
                     c++;
 
@@ -30,7 +32,8 @@ public:
 
                     v[j] = v[j - intervalo];
                     m++;
-                    j = j - intervalo;
+
+                    j -= intervalo;
                 }
 
                 v[j] = aux;
@@ -39,54 +42,68 @@ public:
         }
     }
 
-    static inline void ordenar(std::vector<int>& arr, Metrics& metrics) {
-        if (arr.empty()) return;
-        long long c = 0, m = 0;
-        ordenar(arr.data(), static_cast<int>(arr.size()), c, m);
-        metrics.comparisons = static_cast<unsigned long long>(c);
-        metrics.movements = static_cast<unsigned long long>(m);
+    static inline void ordenar(vector<int>& arr, Metrics& metrics) {
+        if (arr.empty()) {
+            return;
+        }
+
+        long long c = 0;
+        long long m = 0;
+
+        ordenar(arr.data(), arr.size(), c, m);
+
+        metrics.comparisons = c;
+        metrics.movements = m;
     }
 
-    static inline int estaOrdenado(int v[], int n) {
-        for (int i = 0; i < n - 1; i++) {
+    static inline int estaOrdenado(int v[], size_t n) {
+        for (size_t i = 0; i < n - 1; i++) {
             if (v[i] > v[i + 1]) {
                 return 0;
             }
         }
+
         return 1;
     }
 
-    static inline void montarVetor(int dados[], int v[], int n, int tipo) {
-        int i;
+    static inline void montarVetor(int dados[], int v[], size_t n, int tipo) {
+        size_t i;
 
         if (tipo == 1) {
             for (i = 0; i < n; i++) {
                 v[i] = dados[i];
             }
-        } else if (tipo == 2) {
+        }
+        else if (tipo == 2) {
             for (i = 0; i < n; i++) {
                 v[i] = dados[n - 1 - i];
             }
-        } else {
+        }
+        else {
             for (i = 0; i < n; i++) {
                 v[i] = dados[i];
             }
 
-            srand(static_cast<unsigned int>(10 + n));
+            srand(10 + n);
+
             for (i = n - 1; i > 0; i--) {
-                int pos = rand() % (i + 1);
+                size_t pos = rand() % (i + 1);
+
                 int troca = v[i];
                 v[i] = v[pos];
                 v[pos] = troca;
             }
         }
     }
+
     static inline void mostrarTipo(int tipo) {
         if (tipo == 1) {
             cout << "crescente";
-        } else if (tipo == 2) {
+        }
+        else if (tipo == 2) {
             cout << "decrescente";
-        } else {
+        }
+        else {
             cout << "aleatoria";
         }
     }
@@ -101,6 +118,7 @@ public:
 
         cout << "\nTipo inicial: ";
         mostrarTipo(tipo);
+
         cout << "\nQuantidade: " << quantidade;
         cout << "\nC(n): " << c;
         cout << "\nM(n): " << m;
@@ -108,7 +126,8 @@ public:
 
         if (estaOrdenado(v, quantidade)) {
             cout << "sim\n";
-        } else {
+        }
+        else {
             cout << "nao\n";
         }
 
@@ -118,30 +137,33 @@ public:
 
     static inline void testesAutomaticos(int dados[]) {
         int quantidades[5] = {100, 500, 1000, 5000, 10000};
-        int tipo, quantidade;
 
         cout << "\nTestes automaticos\n";
         cout << left << setw(14) << "Tipo"
              << right << setw(10) << "Qtd"
              << setw(15) << "C(n)"
              << setw(15) << "M(n)" << endl;
+
         cout << "------------------------------------------------------\n";
 
-        for (tipo = 1; tipo <= 3; tipo++) {
+        for (int tipo = 1; tipo <= 3; tipo++) {
             for (int i = 0; i < 5; i++) {
                 int v[10000];
                 long long c = 0;
                 long long m = 0;
 
-                quantidade = quantidades[i];
+                int quantidade = quantidades[i];
+
                 montarVetor(dados, v, quantidade, tipo);
                 ordenar(v, quantidade, c, m);
 
                 cout << left << setw(14);
                 mostrarTipo(tipo);
+
                 cout << right << setw(10) << quantidade
                      << setw(15) << c
-                     << setw(15) << m << endl;
+                     << setw(15) << m
+                     << endl;
             }
         }
     }

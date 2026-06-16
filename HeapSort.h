@@ -3,16 +3,17 @@
 
 #include <cstdlib>
 #include <vector>
+
 struct Metrics;
 
 // Implementado por: Fernando Nunes
-void heapify(int v[], int n, int raiz,
-             long long &c, long long &m)
+void heapify(int v[], size_t n, size_t raiz,
+             long long& c, long long& m)
 {
-    int maior = raiz;
+    size_t maior = raiz;
 
-    int esq = 2 * raiz + 1;
-    int dir = 2 * raiz + 2;
+    size_t esq = 2 * raiz + 1;
+    size_t dir = 2 * raiz + 2;
 
     if (esq < n)
     {
@@ -49,15 +50,20 @@ void heapify(int v[], int n, int raiz,
     }
 }
 
-void heapSort(int v[], int n,
-              long long &c, long long &m)
+void heapSort(int v[], size_t n,
+              long long& c, long long& m)
 {
-    for (int i = n / 2 - 1; i >= 0; i--)
+    if (n <= 1)
     {
-        heapify(v, n, i, c, m);
+        return;
     }
 
-    for (int i = n - 1; i > 0; i--)
+    for (size_t i = n / 2; i > 0; i--)
+    {
+        heapify(v, n, i - 1, c, m);
+    }
+
+    for (size_t i = n - 1; i > 0; i--)
     {
         int aux = v[0];
         m++;
@@ -74,16 +80,28 @@ void heapSort(int v[], int n,
 
 inline void heapSort(std::vector<int>& arr, Metrics& metrics)
 {
-    if (arr.empty()) return;
-    long long c = 0, m = 0;
-    heapSort(arr.data(), static_cast<int>(arr.size()), c, m);
-    metrics.comparisons = static_cast<unsigned long long>(c);
-    metrics.movements = static_cast<unsigned long long>(m);
+    if (arr.empty())
+    {
+        return;
+    }
+
+    long long c = 0;
+    long long m = 0;
+
+    heapSort(arr.data(), arr.size(), c, m);
+
+    metrics.comparisons = c;
+    metrics.movements = m;
 }
 
-int estaOrdenado(int v[], int n)
+int estaOrdenado(int v[], size_t n)
 {
-    for (int i = 0; i < n - 1; i++)
+    if (n <= 1)
+    {
+        return 1;
+    }
+
+    for (size_t i = 0; i < n - 1; i++)
     {
         if (v[i] > v[i + 1])
         {
@@ -94,9 +112,9 @@ int estaOrdenado(int v[], int n)
     return 1;
 }
 
-void montarVetor(int dados[],int v[],int n,int tipo)
+void montarVetor(int dados[], int v[], size_t n, int tipo)
 {
-    int i;
+    size_t i;
 
     if (tipo == 1)
     {
@@ -119,11 +137,11 @@ void montarVetor(int dados[],int v[],int n,int tipo)
             v[i] = dados[i];
         }
 
-        srand(static_cast<unsigned int>(10 + n));
+        srand(10 + n);
 
         for (i = n - 1; i > 0; i--)
         {
-            int pos = rand() % (i + 1);
+            size_t pos = rand() % (i + 1);
 
             int aux = v[i];
             v[i] = v[pos];
@@ -132,7 +150,7 @@ void montarVetor(int dados[],int v[],int n,int tipo)
     }
 }
 
-const char* nomeTipo(int tipo)
+string nomeTipo(int tipo)
 {
     if (tipo == 1)
         return "crescente";
